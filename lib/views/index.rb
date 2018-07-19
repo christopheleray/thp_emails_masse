@@ -49,7 +49,7 @@ class Index
 	end
 
 	def Index.do_scrapping # Lance le scrapping et la vérification associée
-		DBAdder.townhalls_adder_to_emails_to_csv
+		DBAdder.add_emails_to_csv
 		Done.verification_scrapper
 	end
 
