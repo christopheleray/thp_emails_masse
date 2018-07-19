@@ -30,8 +30,8 @@ class DBAdder
 
 #crée un fichier temporaire puis le rend permanent afin de pouvoir append le fichier csv avec les handle twitter
   def DBAdder.add_twitter_handles_to_csv
-    data =
-    list = data.
+    data = Follower.scrapp_twitter
+    list = data.list_handle
     data_base = File.dirname(__FILE__) + '/../../db/townhalls.csv'
     temp = Tempfile.new('csv')
     for i in (0..list.length-1)

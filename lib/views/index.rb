@@ -49,18 +49,18 @@ class Index
 	end
 
 	def Index.do_scrapping # Lance le scrapping et la vérification associée
-		DBAdder.new
 		DBAdder.townhalls_adder_to_emails_to_csv
 		Done.verification_scrapper
 	end
+
 	def Index.do_mailing # Lance le mailing et la vérification associée
 		Mailers.new
 		Done.verification_mailer
 	end
+
 	def Index.do_following # Lance le following et la vérification associées
-		Follower.new
 		DBAdder.add_twitter_handles_to_csv
-		Follower.follow
+		Follower.following_mass
 		Done.verification_follower
 	end
 end
