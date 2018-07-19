@@ -10,6 +10,7 @@ class Index
     puts "Bienvenue"
     puts ""
     Index.menu
+		DBAdder.new
 	end
 
 	def Index.menu # Affiche à l'utilisateur le menu

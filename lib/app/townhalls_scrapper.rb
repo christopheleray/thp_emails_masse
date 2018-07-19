@@ -3,12 +3,14 @@ require 'nokogiri'
 require 'open-uri'
 
 class Scrapper
+  #attr_accessor permet d'utiliser la variable @data_list en dehors de la classe Scrapper grâce à .data_list
   attr_accessor :data_list
 
   def initialize
     @data_list = get_the_townhalls_info(get_the_townhalls_url(get_the_departments))
   end
 
+#recherche les urls des 3 départements sélectionnés
   def get_the_departments
     url_list = []
     doc = Nokogiri::HTML(open("https://www.annuaire-des-mairies.com/"))
@@ -18,6 +20,7 @@ class Scrapper
     return url_list
   end
 
+#recherche les urls de toutes les communes dans une liste d'urls de départements
   def get_the_townhalls_url(urls)
     url_list = []
     urls.each do |url|
@@ -29,6 +32,7 @@ class Scrapper
     return url_list
   end
 
+#rentre dans une liste de hash les infos voulues pour chaque commune du département
   def get_the_townhalls_info(urls)
     list = []
     urls.each do |url|
