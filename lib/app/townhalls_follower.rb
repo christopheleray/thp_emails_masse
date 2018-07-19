@@ -56,7 +56,7 @@ end
 
 # Methode permettant de recupérer tout les ppsueod twitter d'un csv puis de les suivre
 def following_mass
-	CSV.foreach(File.dirname(__FILE__) + '/../../db/test.csv', :headers=>true) do |csv|
+	CSV.foreach(File.dirname(__FILE__) + '/../../db/townhalls.csv', :headers=>true) do |csv|
      puts "#{csv[3]}"
      follow_mairies(csv[3])
    end
