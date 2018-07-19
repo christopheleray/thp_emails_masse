@@ -1,3 +1,5 @@
+# class Mailers permettant d'envoyer recuperer les emails dun fichier csv
+# et de leur envoyer un email
 require 'gmail'
 require 'dotenv'
 require 'pry'
@@ -5,25 +7,21 @@ require 'csv'
 Dotenv.load('../../.env') 
 
 class Mailers
-
-  #attr_accessor :gmail  
-
+# methode d'intialisation on lance la methode send_mass_mailing via Mailers.new
   def initialize
   send_mass_mailing
   end 
-
+# Methode qui va récupérer donnée d'un csv et envoyer email
   def send_mass_mailing
-    tab = []
     CSV.foreach(File.dirname(__FILE__) + '/../../db/townhalls.csv', :headers=>true) do |csv|
-      send_email(csv[2],csv[0])
-      puts "email sent to #{csv[0]} at #{csv[2]}"
+      send_email(csv[2],csv[0]) # call la fonction send_email et lui passe en parametre la colonne 3 et la colonne 1 du csv
+      puts "email sent to #{csv[0]} at #{csv[2]}" #affiche à l'écran l'email envoyé
     end
-    return true 
   end
-
+# Méthode pour envoyer email avec argument email et nom
   def send_email(email, name)
-      gmail = Gmail.connect!("thprennes@gmail.com", ENV["PASSWORD"])
-      email = gmail.deliver do
+      gmail = Gmail.connect!("thprennes@gmail.com", ENV["PASSWORD"]) #connexion au compte email
+      email = gmail.deliver do # envoie d'email
       to "#{email}"
       subject "The Hacking Project"
       html_part do
@@ -48,10 +46,6 @@ class Mailers
             <p>Charles, co-fondateur de The Hacking Project pourra répondre à toutes vos questions : 06.95.46.60.80</p>"
         end
     end
-    #email.deliver!
-    #gmail.logout
+    gmail.logout # Deconnexion de Gmail
   end
-
-binding.pry
-
-end
+end #fin de classe Mailers
