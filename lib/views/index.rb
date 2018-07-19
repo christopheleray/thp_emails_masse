@@ -1,12 +1,12 @@
 load 'done.rb'
 $: << File.join(File.dirname(__FILE__), "/../app")
 load 'townhalls_adder_to_db.rb'
-#load 'townhalls_followers.rb'
+load 'townhalls_follower.rb'
 load 'townhalls_mailer.rb'
 load 'townhalls_scrapper.rb'
 
 class Index
-	def initialize
+	def initialize #lance Index.menu et initialise le fichier csv avec un header
     puts "Bienvenue"
     puts ""
     Index.menu
