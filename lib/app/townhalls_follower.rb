@@ -2,38 +2,41 @@ require 'twitter'
 require 'dotenv'
 require 'csv'
 require 'pry'
+require 'watir'
 #load '../../db/townhalls.csv'
 
 Dotenv.load('../../.env')
 
-=begin 
-follow les mairies du 35, 22, 56
-t = CSV.table('townhalls.csv')
-townhalls_name = t[:communes]
-#for i in (1..hash.length-1)
-#
-#	ws[i, 1] = hash[i][:name]
-#	ws[i, 2] = hash[i][:email]
 
-def following
-	while "@"+"mairie"+communes = nil
-		"@"+"ville"+communes
-	else
-	end
-end
-
-
-
-
-#townhalls_name.each do |communes|
-=end
-# Définition de la classe Follower
 class Follower
 
-# Initialization de la classe Follower en lancant Follower.new
-def initialize
-	following_mass 
+
+def scrapp_twitter
+
+  list_handle = [" "]
+
+  username = "thprennes@gmail.com"
+  password = ENV["PASSWORD"]
+
+CSV.foreach(File.dirname(__FILE__) + '/../../db/townhalls.csv', :headers=>true) do |csv|
+  browser = Watir::Browser.new :firefox
+  browser.goto "http://twitter.com/login" #se connecte directement sur http://twitter.com/login
+  browser.text_field(:class => 'js-username-field email-input js-initial-focus').set "thprennes@gmail.com" #identifiant twitter
+  browser.text_field(:class => 'js-password-field').set "thprennes2018" #password twitter
+  browser.button(:class => 'submit EdgeButton EdgeButton--primary EdgeButtom--medium').click #clique sur connecter
+  browser.text_field(:id => 'search-query').click #click dans rechercher
+  var = browser.text_field(:id => 'search-query').set "mairie " + csv[0]
+  sleep(1)
+  var = browser.text_field(:id => 'search-query').set "mairie " + csv[0] + " "
+  s = browser.span class: 'username u-dir'
+  s.exists?
+  list_handle << s.text[1..-1]
+  browser.close
+  sleep(5)
+  end
+  return list_handle
 end
+
 
 # Methode permettant de suivre une liste psuero twitter
 def follow_mairies(handle)
@@ -62,5 +65,4 @@ def following_mass
    end
 end
 
-binding.pry
 end
