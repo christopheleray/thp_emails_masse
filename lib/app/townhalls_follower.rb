@@ -11,7 +11,7 @@ Dotenv.load('../../.env')
 class Follower
   attr_accessor :list_handle
 
-def scrapp_twitter
+def Follower.scrapp_twitter
   list_handle = [" "]
   username = "thprennes@gmail.com"
   password = ENV["PASSWORD"]
@@ -56,7 +56,7 @@ end
 end
 
 # Methode permettant de recupérer tout les ppsueod twitter d'un csv puis de les suivre
-def following_mass
+def Follower.following_mass
 	CSV.foreach(File.dirname(__FILE__) + '/../../db/townhalls.csv', :headers=>true) do |csv|
      puts "#{csv[3]}"
      follow_mairies(csv[3])
